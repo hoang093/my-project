@@ -1,13 +1,14 @@
-name: Weekly Auto Commit
+name: Daily Auto Commit
 
 on:
-  workflow_dispatch:    # Возможность запуска вручную
+  workflow_dispatch:    # Возможность запустить вручную
   schedule:
-    - cron: '0 0 * * 0' # Автоматический запуск каждое воскресенье в 00:00
+    - cron: '0 0 * * *' # Автоматический запуск каждый день в 00:00 UTC
 
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,4 +23,4 @@ jobs:
           echo "Auto commit at $(date)" >> activity-log.txt
           git add activity-log.txt
           git commit -m "Automated commit - $(date)"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
