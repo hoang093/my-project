@@ -1,8 +1,9 @@
 name: Weekly Auto Commit
 
 on:
+  workflow_dispatch:    # Возможность запуска вручную
   schedule:
-    - cron: '0 0 * * 0'  # Запуск каждое воскресенье в 00:00
+    - cron: '0 0 * * 0' # Автоматический запуск каждое воскресенье в 00:00
 
 jobs:
   auto-commit:
