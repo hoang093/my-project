@@ -1,0 +1,24 @@
+name: Weekly Auto Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Запуск каждое воскресенье в 00:00
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "hoang093"
+          git config --global user.email "youremail@example.com"
+
+      - name: Add a new activity log
+        run: |
+          echo "Auto commit at $(date)" >> activity-log.txt
+          git add activity-log.txt
+          git commit -m "Automated commit - $(date)"
+          git push
